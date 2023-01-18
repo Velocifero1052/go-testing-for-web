@@ -13,6 +13,7 @@ func (app *application) routes() http.Handler {
 	mux.Use(app.addIPToContext)
 	//register routes
 	mux.Get("/", app.Home)
+	mux.Post("/login", app.Login)
 	//static assets
 	fileServer := http.FileServer(http.Dir("./static"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
