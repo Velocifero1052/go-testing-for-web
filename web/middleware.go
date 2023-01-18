@@ -15,7 +15,7 @@ func (app *application) ipFromContext(ctx context.Context) string {
 	return ctx.Value(contextUserKey).(string)
 }
 
-func (app *application) appIPToContext(next http.Handler) http.Handler {
+func (app *application) addIPToContext(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var ctx = context.Background()
 		// get the ip (as accurately as possible)
