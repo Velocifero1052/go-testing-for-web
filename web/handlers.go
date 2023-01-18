@@ -3,7 +3,10 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"path"
 )
+
+var pathToTemplates = "./templates/"
 
 type TemplateData struct {
 	IP   string
@@ -15,14 +18,14 @@ func (app *application) Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) render(w http.ResponseWriter, r *http.Request, t string, data *TemplateData) error {
-	parsedTemplate, err := template.ParseFiles("./templates/" + t)
+	parsedTemplate, err := template.ParseFiles(path.Join(pathToTemplates, t))
 
 	if err != nil {
 		http.Error(w, "bad request", http.StatusBadRequest)
 	}
 
 	err = parsedTemplate.Execute(w, data)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
