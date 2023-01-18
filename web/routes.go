@@ -10,6 +10,7 @@ func (app *application) routes() http.Handler {
 	mux := chi.NewRouter()
 	//register middleware
 	mux.Use(middleware.Recoverer)
+	mux.Use(app.appIPToContext)
 	//register routes
 	mux.Get("/", app.Home)
 	//static assets
