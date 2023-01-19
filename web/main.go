@@ -7,12 +7,13 @@ import (
 	"log"
 	"net/http"
 	"testingCourserWeb/pkg/data"
-	"testingCourserWeb/pkg/db"
+	"testingCourserWeb/pkg/repository"
+	"testingCourserWeb/pkg/repository/dbrepo"
 )
 
 type application struct {
 	DSN     string
-	DB      db.PostgresConn
+	DB      repository.DatabaseRepo
 	Session *scs.SessionManager
 }
 
@@ -30,7 +31,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	app.DB = db.PostgresConn{DB: conn}
+	app.DB = &dbrepo.PostgresDBRepo{DB: conn}
 	//get a session manager
 	app.Session = getSession()
 
